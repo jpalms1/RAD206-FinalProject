@@ -5,42 +5,52 @@ using UnityEngine;
 public class NeedleCollision : MonoBehaviour
 {
     GameObject needle;
-    Color originalColor;
-    public string otherObj;
-
+    GameObject otherObj;
+    Color originalNeedleColor;
+    Color originalObjColor;
+    public string otherObjName;
 
     void Start()
     {
         needle = GameObject.Find("MixedRealityPlayspace/Main Camera/Needle");
-        originalColor = needle.GetComponent<Renderer>().material.color;
-        otherObj = "none";
+        originalNeedleColor = needle.GetComponent<Renderer>().material.color;
+        otherObjName = "none";
     }
 
     void OnTriggerEnter(Collider other)
     {
+        otherObj = other.gameObject;
+        otherObjName = other.gameObject.name;
 
-        if (other.gameObject.CompareTag("C-Spine"))
+        if (otherObjName != "Model")
         {
-            needle.GetComponent<Renderer>().material.color = Color.red;
+            originalObjColor = otherObj.GetComponent<Renderer>().material.color;
+
+            if (other.gameObject.CompareTag("C-Spine") ||
+                other.gameObject.CompareTag("L-Spine") ||
+                other.gameObject.CompareTag("T-Spine"))
+            {
+                otherObj.GetComponent<Renderer>().material.color = Color.red;
+                Debug.Log("Collision w/ " + otherObjName);
+            }
+            if (other.gameObject.CompareTag("IntervertabralDiscs"))
+            {
+                otherObj.GetComponent<Renderer>().material.color = Color.gray;
+
+                Debug.Log("Needle in " + otherObjName);
+            }
+            if (other.gameObject.CompareTag("SpinalCord"))
+            {
+                otherObj.GetComponent<Renderer>().material.color = Color.gray;
+                Debug.Log("You hit the " + otherObjName);
+            }
         }
-        if (other.gameObject.CompareTag("test"))
-        {
-            needle.GetComponent<Renderer>().material.color = Color.blue;
-        }
-        otherObj = other.gameObject.name;
-        Debug.Log(otherObj);
     }
 
     void OnTriggerExit(Collider other)
     {
         // Change to original color
-        if (other.gameObject.CompareTag("C-Spine"))
-        {
-            needle.GetComponent<Renderer>().material.color = originalColor;
-        }
-        if (other.gameObject.CompareTag("test"))
-        {
-            needle.GetComponent<Renderer>().material.color = originalColor;
-        }
+        needle.GetComponent<Renderer>().material.color = originalNeedleColor;
+        otherObj.GetComponent<Renderer>().material.color = originalObjColor;
     }
 }
