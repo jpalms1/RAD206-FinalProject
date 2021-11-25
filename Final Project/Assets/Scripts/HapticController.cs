@@ -17,7 +17,11 @@ public class HapticController : MonoBehaviour
     public float dorsalCommand;
     public float ventralCommand;
 
-    LineRenderer needleCenterToHIPLine;
+    Ray needleTipGORay;
+    RaycastHit hitInfo;
+    public LayerMask discMask;
+
+    public bool isGOInDisc;
 
     // Start is called before the first frame update
     void Start()
@@ -26,10 +30,10 @@ public class HapticController : MonoBehaviour
         needleTipHIP = GameObject.Find("MixedRealityPlayspace/Main Camera/Needle/NeedleTipHIP");
         needleTipGO = GameObject.Find("MixedRealityPlayspace/Main Camera/Needle/NeedleTipGO");
 
-        needleCenterToHIPLine = needle.AddComponent<LineRenderer>();
-
         dorsalCommand = 0.0f;
         ventralCommand = 0.0f;
+
+        isGOInDisc = false;
     }
 
     // Update is called once per frame
@@ -44,8 +48,44 @@ public class HapticController : MonoBehaviour
         needleGOToHIP = needleTipGO.transform.position - needleTipHIP.transform.position;
 
         //Draw NeedleCenterToHIPLine
-        drawLine(needleCenterToHIPLine, needle.transform.position, needleTipHIP.transform.position, Color.red);
+        Debug.DrawLine(needle.transform.position, needleTipHIP.transform.position, Color.red);
 
+        //Define ray from needleGO to Discs along cylinderAxis
+        needleTipGORay = new Ray(needleTipGO.transform.position, cylinderAxis);
+
+        if (Physics.Raycast(needleTipGORay, out hitInfo, 50, discMask) == true && isGOInDisc == true)
+        {
+            Debug.DrawLine(needleTipGORay.origin, hitInfo.point, Color.red);
+            //Keep GO on surface of mesh
+            needleTipGO.transform.position = hitInfo.point;
+            Debug.Log("hitInfo.point: " + (hitInfo.point).ToString());
+        }
+        if (Physics.Raycast(needleTipGORay, out hitInfo, 50, discMask) == true && isGOInDisc == false)
+        {
+            Debug.DrawLine(needleTipGORay.origin, hitInfo.point, Color.red);
+        }
+        if (Physics.Raycast(needleTipGORay, out hitInfo, 50, discMask) == false && isGOInDisc == false) 
+        {
+            Debug.DrawLine(needleTipGORay.origin, needleTipGORay.origin + needleTipGORay.direction * 50, Color.blue);
+        }
+        else
+        {
+            Debug.Log("RaycastHit: " + (Physics.Raycast(needleTipGORay, out hitInfo, 50, discMask)).ToString()
+                + "\nisGOInDisc: " + isGOInDisc.ToString());
+        }
+
+
+        /*
+        if(isGOInDisc == true)
+        {
+            //Keep GO on surface of mesh
+            needleTipGO.transform.position = hitInfo.point;
+        }
+        else
+        {
+            //continue
+        }
+        */
 
     }
 
@@ -53,30 +93,40 @@ public class HapticController : MonoBehaviour
     //When the needle tip collides with the disc, freeze the z-position of the tipGO
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name != "Model")
+        if (other.gameObject.name == "Male_Skeletal_Intervertabral_Discs_Geo")
         {
-            Vector3 offset = new Vector3(0.0f, 0.0f, -0.1f);
 
-            //needleTipGO.transform.position = needleTipHIP.transform.position + Vector3.Dot(offset, cylinderAxis) * cylinderAxis;
+            //Vector3 offset = new Vector3(0.0f, 0.0f, -0.1f);
 
-            //Convert value to mm
-            dorsalCommand = 0.005f * convertMeterToMillimeter;
-            ventralCommand = 0.005f * convertMeterToMillimeter;
+            ////needleTipGO.transform.position = needleTipHIP.transform.position + Vector3.Dot(offset, cylinderAxis) * cylinderAxis;
+
+            ////Convert value to mm
+            //dorsalCommand = 0.005f * convertMeterToMillimeter;
+            //ventralCommand = 0.005f * convertMeterToMillimeter;
+
+            //Keep GO on surface of mesh
+            //needleTipGO.transform.position = hitInfo.point; 
+            // Debug.Log("hitInfo.point: " + (hitInfo.point).ToString());
+            isGOInDisc = true;
         }
     }
 
-    /*
+/*
     void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.name != "Model")
+        if (other.gameObject.name == "Male_Skeletal_Intervertabral_Discs_Geo")
         {
-            needleTipGO.transform.position = new Vector3(needleTipGO.transform.position.x,
-                needleTipGO.transform.position.y, needleTipGO.transform.position.z - needleTipHIP.transform.position.z);
+            //Keep GO on surface of mesh
+            needleTipGO.transform.position = hitInfo.point;
         }
     }
-    */
+    //    */
     void OnTriggerExit(Collider other)
     {
+        if (other.gameObject.name == "Male_Skeletal_Intervertabral_Discs_Geo")
+        {
+            isGOInDisc = false;
+        }
         needleTipGO.transform.position = needleTipHIP.transform.position;
 
         //Convert value to mm
@@ -84,12 +134,5 @@ public class HapticController : MonoBehaviour
         ventralCommand = 0.0f;
     }
 
-    void drawLine(LineRenderer line, Vector3 startPoint, Vector3 endPoint, Color color)
-    {
-        line.useWorldSpace = true;
-        line.SetPosition(0, startPoint);
-        line.SetPosition(1, endPoint);
-        line.SetWidth(0.01f, 0.01f);
-        line.material.color = color;
-    }
+
 }

@@ -26297,7 +26297,7 @@ GameObject:
   - component: {fileID: 662112869}
   - component: {fileID: 661014565}
   - component: {fileID: 658824816}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Male_Skeletal_Intervertabral_Discs_Geo
   m_TagString: IntervertabralDiscs
   m_Icon: {fileID: 0}
@@ -73408,7 +73408,7 @@ GameObject:
   - component: {fileID: 1242766450}
   - component: {fileID: 1242766453}
   - component: {fileID: 1242766452}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NeedleTipGO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73818,6 +73818,9 @@ MonoBehaviour:
   cylinderAxisIsUnit: 0
   dorsalCommand: 0
   ventralCommand: 0
+  discMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &1791435686
 MonoBehaviour:
   m_ObjectHideFlags: 0
