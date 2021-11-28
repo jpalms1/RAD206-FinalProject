@@ -31,18 +31,18 @@ public class NeedleCollision : MonoBehaviour
                 other.gameObject.CompareTag("T-Spine"))
             {
                 otherObj.GetComponent<Renderer>().material.color = Color.red;
-                Debug.Log("Collision w/ " + otherObjName);
+               // Debug.Log("Collision w/ " + otherObjName);
             }
             if (other.gameObject.CompareTag("IntervertabralDiscs"))
             {
                 otherObj.GetComponent<Renderer>().material.color = Color.gray;
 
-                Debug.Log("Needle in " + otherObjName);
+               // Debug.Log("Needle in " + otherObjName);
             }
             if (other.gameObject.CompareTag("SpinalCord"))
             {
                 otherObj.GetComponent<Renderer>().material.color = Color.gray;
-                Debug.Log("You hit the " + otherObjName);
+               // Debug.Log("You hit the " + otherObjName);
             }
         }
     }

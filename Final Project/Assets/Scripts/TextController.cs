@@ -8,25 +8,28 @@ using Microsoft.MixedReality.Toolkit.UI;
 
 public class TextController : MonoBehaviour
 {
-    GameObject skinModel;
-    GameObject boneModel;
-    GameObject colonModel;
-    GameObject contrastModel;
-    GameObject toolModel;
+    GameObject cSpineModel;
+    GameObject lSpineModel;
+    GameObject tSpineModel;
+    GameObject discsModel;
+    GameObject spinalCordModel;
+    GameObject sacrumModel;
 
     public TextMeshProUGUI statusText;
 
-    bool twoHandBool;
-    bool oneHandBool;
+    string manipulationType;
 
     // Start is called before the first frame update
     void Start()
     {
-        skinModel = GameObject.Find("MixedRealityPlayspace/Main Camera/Cube/Body/Skin/Skin");
-        boneModel = GameObject.Find("MixedRealityPlayspace/Main Camera/Cube/Body/Bones/Bones");
-        colonModel = GameObject.Find("MixedRealityPlayspace/Main Camera/Cube/Body/Colon/Colon");
-        contrastModel = GameObject.Find("MixedRealityPlayspace/Main Camera/Cube/Body/Contrast/Contrast");
-        toolModel = GameObject.Find("MixedRealityPlayspace/Main Camera/VirtualTool/Capsule");
+        cSpineModel = GameObject.Find("MixedRealityPlayspace/Main Camera/Model/WholeBody/Skeleton/C-Spine");
+        lSpineModel = GameObject.Find("MixedRealityPlayspace/Main Camera/Model/WholeBody/Skeleton/L-Spine");
+        tSpineModel = GameObject.Find("MixedRealityPlayspace/Main Camera/Model/WholeBody/Skeleton/T-Spine");
+        discsModel = GameObject.Find("MixedRealityPlayspace/Main Camera/Model/WholeBody/Skeleton/Male_Skeletal_Intervertabral_Discs_Geo");
+        spinalCordModel = GameObject.Find("MixedRealityPlayspace/Main Camera/Model/WholeBody/Organs/Nervous_Brain_Stem_Geo");
+        sacrumModel = GameObject.Find("MixedRealityPlayspace/Main Camera/Model/WholeBody/Skeleton/Male_Skeletal_Sacrum_Geo");
+        
+        manipulationType = "Two-Handed";
     }
 
     // Update is called once per frame
@@ -34,23 +37,21 @@ public class TextController : MonoBehaviour
     {
         if(GetComponent<ObjectManipulator>().isActiveAndEnabled == true)
         {
-            twoHandBool = true;
-            oneHandBool = false;
+            manipulationType = "Two-Handed";
         }
         else
         {
-            twoHandBool = false;
-            oneHandBool = true;
+            manipulationType = "One-Handed";
         }
 
-        statusText.text = "Skin: " + skinModel.activeSelf.ToString() +
-            "\nBones: " + boneModel.activeSelf.ToString() +
-            "\nColon: " + colonModel.activeSelf.ToString() +
-            "\nContrast: " + contrastModel.activeSelf.ToString() +
-            "\nTool: " + toolModel.activeSelf.ToString() +
-            "\nOne-Handed: " + oneHandBool.ToString() +
-            "\nTwo-Handed: " + twoHandBool.ToString();
-
+        statusText.text = "<size=22>Status:</size>" +
+            "\nC-Spine: " + cSpineModel.activeSelf.ToString() +
+            "\nT-Spine: " + tSpineModel.activeSelf.ToString() +
+            "\nL-Spine: " + lSpineModel.activeSelf.ToString() +
+            "\nDiscs: " + discsModel.activeSelf.ToString() +
+            "\nSpinal Cord: " + spinalCordModel.activeSelf.ToString() +
+            "\nSacrum: " + sacrumModel.activeSelf.ToString() + 
+            "\nManip Type: " + manipulationType;
     }
 
 }

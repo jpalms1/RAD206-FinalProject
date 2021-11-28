@@ -69,7 +69,7 @@ public class SerialComms : MonoBehaviour
                 float dorsalVal = GetComponent<HapticController>().dorsalCommand;
                 float ventralVal = GetComponent<HapticController>().ventralCommand;
 
-                Debug.Log("dorsalVal: " + dorsalVal.ToString() + "\nventralVal: " + ventralVal.ToString());
+                //Debug.Log("dorsalVal: " + dorsalVal.ToString() + "\nventralVal: " + ventralVal.ToString());
 
                 string message = dorsalVal.ToString("0.00") + "A" + ventralVal.ToString("0.00") + "B";
 
