@@ -4,87 +4,127 @@ using UnityEngine;
 
 public class HapticController : MonoBehaviour
 {
-    float convertToMillimeter = 100.0f;
-    public float dorsalCommand;
-    public float ventralCommand;
+    public GameObject[] hapticTargets;
+
+    public float totalDorsalCommand;
+    public float totalVentralCommand;
 
     GameObject needle;
     GameObject needleTipHIP;
     GameObject needleTipGO;
 
-    public Vector3 needleCenterToHIP;
-    public Vector3 needleGOToHIP;
     public Vector3 cylinderAxis;
     public float cylinderAxisIsUnit;
 
-    public Vector3 needleTipGOCollision;
-    public bool isGOInDisc;
+    public bool[] hapticTargetBools;
+    bool isNeedleInSkin;
+    bool isNeedleInMuscle;
+    bool isNeedleInDisc;
+    bool isNeedleInStem;
 
+    public Vector3 needleCenterToHIP;
+    public Vector3 needleGOToHIP;
+    public Vector3 needleTipHIPPosition;
 
     // Start is called before the first frame update
     void Start()
     {
-        needle = GameObject.Find("MixedRealityPlayspace/Main Camera/Needle");
-        needleTipHIP = GameObject.Find("MixedRealityPlayspace/Main Camera/Needle/NeedleTipHIP");
-        needleTipGO = GameObject.Find("MixedRealityPlayspace/Main Camera/Needle/NeedleTipGO");
+        hapticTargets = new GameObject[] {            
+            GameObject.Find("skin"),
+            GameObject.Find("Muscle"),
+            GameObject.Find("Male_Skeletal_Intervertabral_Discs_Geo"),
+            GameObject.Find("Nervous_Brain_Stem_Geo")};
+        hapticTargetBools = new bool[4];
 
-        dorsalCommand = 0.0f;
-        ventralCommand = 0.0f;
+        needle = GameObject.Find("Needle");
+        needleTipHIP = GameObject.Find("NeedleTipHIP");
 
-        isGOInDisc = false;
+        totalDorsalCommand = 0.0f;
+        totalVentralCommand = 0.0f;
+
+        //isNeedleInDisc = false;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        hapticTargetBools[0] = isNeedleInSkin;
+        hapticTargetBools[1] = isNeedleInMuscle;
+        hapticTargetBools[2] = isNeedleInDisc;
+        hapticTargetBools[3] = isNeedleInStem;
+
+        needleTipHIPPosition = needleTipHIP.transform.position;
+
         //Get the unit vector between HIP and needle center along the axis
-        needleCenterToHIP = needleTipHIP.transform.position - needle.transform.position;
+        needleCenterToHIP = needleTipHIPPosition - needle.transform.position;
         cylinderAxis = needleCenterToHIP / Vector3.Magnitude(needleCenterToHIP);
         cylinderAxisIsUnit = Vector3.Magnitude(cylinderAxis);
 
-        needleGOToHIP = needleTipGO.transform.position - needleTipHIP.transform.position;
-
         //Draw NeedleCenterToHIPLine
-        Debug.DrawLine(needle.transform.position, needleTipHIP.transform.position, Color.cyan);
+        Debug.DrawLine(needle.transform.position, needleTipHIPPosition, Color.cyan);
 
-        if (isGOInDisc == true)
-        {
-            needleTipGO.transform.position = needleTipGOCollision;
+        totalDorsalCommand = GameObject.Find("SkinMuscleGO").GetComponent<GodObjectController>().dorsalCommand +
+            GameObject.Find("DiscGO").GetComponent<GodObjectController>().dorsalCommand +
+            GameObject.Find("StemGO").GetComponent<GodObjectController>().dorsalCommand;
+        totalVentralCommand = GameObject.Find("SkinMuscleGO").GetComponent<GodObjectController>().ventralCommand +
+            GameObject.Find("DiscGO").GetComponent<GodObjectController>().ventralCommand + 
+            GameObject.Find("StemGO").GetComponent<GodObjectController>().ventralCommand;
 
-            //Convert value to mm
-            dorsalCommand = 0.5f *Vector3.Magnitude(needleGOToHIP) * convertToMillimeter;
-            ventralCommand = dorsalCommand;
-        }
-        else
+        //Set max limits
+        if (totalDorsalCommand > 20.0f)
         {
-            needleTipGO.transform.position = needleTipHIP.transform.position;
-            dorsalCommand = 0.0f;
-            ventralCommand = 0.0f;
+            totalDorsalCommand = 20.0f;
         }
+        if (totalVentralCommand > 20.0f)
+        {
+            totalVentralCommand = 20.0f;
+        }
+
     }
 
     //When the needle tip collides with the disc, freeze the z-position of the tipGO
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "Male_Skeletal_Intervertabral_Discs_Geo")
+        
+        if (other.gameObject == hapticTargets[0])
         {
-            needleTipGOCollision = needleTipGO.transform.position;
-            //Debug.Log((needleTipGO.transform.position).ToString("F4"));
-
-            isGOInDisc = true;
+            //Combine skin and muscle feedback but use muscle mesh collider
+            isNeedleInSkin = true;
+            isNeedleInMuscle= true;
+            Debug.Log("Skin/Muscle  ENTER");
+        }
+        if (other.gameObject == hapticTargets[2])
+        {
+            isNeedleInDisc = true;
+            Debug.Log(other.gameObject.tag + "  ENTER  OUCH  D': ");
+        }
+        if (other.gameObject.CompareTag(hapticTargets[3].tag))
+        {
+            isNeedleInStem = true;
+            Debug.Log(other.gameObject.tag + "  ENTER   YAY!!!!!");
         }
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.name == "Male_Skeletal_Intervertabral_Discs_Geo")
-        {
-            isGOInDisc = false;
-        }
-        needleTipGO.transform.position = needleTipHIP.transform.position;
 
-        //Convert value to mm
-        dorsalCommand = 0.0f;
-        ventralCommand = 0.0f;
+        if (other.gameObject == hapticTargets[0])
+        {
+            //Combine skin and muscle feedback but use muscle mesh collider
+            isNeedleInSkin = true;
+            isNeedleInMuscle = true;
+            Debug.Log(other.gameObject.tag + "  EXIT");
+        }
+        if (other.gameObject == hapticTargets[2])
+        {
+            isNeedleInDisc = false;
+            Debug.Log(other.gameObject.tag + "  EXIT");
+        }
+        if (other.gameObject.CompareTag(hapticTargets[3].tag))
+        {
+            isNeedleInStem = false;
+            Debug.Log(other.gameObject.tag + "  EXIT");
+        }
     }
+
 }

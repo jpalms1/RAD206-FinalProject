@@ -66,10 +66,10 @@ public class SerialComms : MonoBehaviour
 
             if (currentTime - lastTime > 0.005f)
             {
-                float dorsalVal = GetComponent<HapticController>().dorsalCommand;
-                float ventralVal = GetComponent<HapticController>().ventralCommand;
+                float dorsalVal = GetComponent<HapticController>().totalDorsalCommand;
+                float ventralVal = GetComponent<HapticController>().totalVentralCommand;
 
-                Debug.Log("dorsalVal: " + dorsalVal.ToString() + "\nventralVal: " + ventralVal.ToString());
+                //Debug.Log("dorsalVal: " + dorsalVal.ToString() + "\nventralVal: " + ventralVal.ToString());
 
                 string message = dorsalVal.ToString("0.00") + "A" + ventralVal.ToString("0.00") + "B";
 
