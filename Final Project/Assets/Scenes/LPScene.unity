@@ -74324,6 +74324,7 @@ GameObject:
   - component: {fileID: 1242766450}
   - component: {fileID: 1242766453}
   - component: {fileID: 1242766452}
+  - component: {fileID: 1242766451}
   m_Layer: 6
   m_Name: NeedleTipGO
   m_TagString: Untagged
@@ -74345,6 +74346,18 @@ Transform:
   m_Father: {fileID: 1791435676}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1242766451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242766449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c73ed4f09c8d8eb4f9bbbce9b365a47f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!23 &1242766452
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -75496,15 +75509,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9744332bdfe94024eb2ff0dd419a00f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dorsalCommand: 0
+  ventralCommand: 0
   needleCenterToHIP: {x: 0, y: 0, z: 0}
   needleGOToHIP: {x: 0, y: 0, z: 0}
   cylinderAxis: {x: 0, y: 0, z: 0}
   cylinderAxisIsUnit: 0
-  dorsalCommand: 0
-  ventralCommand: 0
-  discMask:
-    serializedVersion: 2
-    m_Bits: 64
+  needleTipGOCollision: {x: 0, y: 0, z: 0}
   isGOInDisc: 0
 --- !u!114 &1791435686
 MonoBehaviour:

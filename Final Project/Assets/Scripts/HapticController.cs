@@ -4,25 +4,22 @@ using UnityEngine;
 
 public class HapticController : MonoBehaviour
 {
-    float convertMeterToMillimeter = 1000.0f;
+    float convertToMillimeter = 100.0f;
+    public float dorsalCommand;
+    public float ventralCommand;
 
     GameObject needle;
     GameObject needleTipHIP;
     GameObject needleTipGO;
+
     public Vector3 needleCenterToHIP;
     public Vector3 needleGOToHIP;
     public Vector3 cylinderAxis;
     public float cylinderAxisIsUnit;
 
-    public float dorsalCommand;
-    public float ventralCommand;
-
-    Ray needleTipGORay;
-    RaycastHit hitInfo;
-    public LayerMask discMask;
-    public float maxDistance = 0.3f;
-
+    public Vector3 needleTipGOCollision;
     public bool isGOInDisc;
+
 
     // Start is called before the first frame update
     void Start()
@@ -50,46 +47,34 @@ public class HapticController : MonoBehaviour
         //Draw NeedleCenterToHIPLine
         Debug.DrawLine(needle.transform.position, needleTipHIP.transform.position, Color.cyan);
 
-        //Define ray from needleGO to Discs along cylinderAxis
-        needleTipGORay = new Ray(needleTipGO.transform.position, cylinderAxis);
-
-        //if ray collides with an object in discs layer
-        if (Physics.Raycast(needleTipGORay, out hitInfo, maxDistance, discMask))
+        if (isGOInDisc == true)
         {
-            //Draw line to ray contact point
-            Debug.DrawLine(needleTipGORay.origin, hitInfo.point, Color.red);
-            //needleTipGO.transform.position = hitInfo.point;
+            needleTipGO.transform.position = needleTipGOCollision;
+
+            //Convert value to mm
+            dorsalCommand = 0.5f *Vector3.Magnitude(needleGOToHIP) * convertToMillimeter;
+            ventralCommand = dorsalCommand;
         }
         else
         {
-            //Draw ray outward 
-            Debug.DrawLine(needleTipGORay.origin, needleTipGORay.origin + maxDistance*needleTipGORay.direction, Color.green);
-            //needleTipGO.transform.position = needleTipHIP.transform.position;
+            needleTipGO.transform.position = needleTipHIP.transform.position;
+            dorsalCommand = 0.0f;
+            ventralCommand = 0.0f;
         }
     }
-
 
     //When the needle tip collides with the disc, freeze the z-position of the tipGO
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "Male_Skeletal_Intervertabral_Discs_Geo")
         {
-            //Keep GO on surface of mesh
-            needleTipGO.transform.position = hitInfo.point;
+            needleTipGOCollision = needleTipGO.transform.position;
+            //Debug.Log((needleTipGO.transform.position).ToString("F4"));
+
             isGOInDisc = true;
         }
     }
 
-/*
-    void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.name == "Male_Skeletal_Intervertabral_Discs_Geo")
-        {
-            //Keep GO on surface of mesh
-            needleTipGO.transform.position = hitInfo.point;
-        }
-    }
-    //    */
     void OnTriggerExit(Collider other)
     {
         if (other.gameObject.name == "Male_Skeletal_Intervertabral_Discs_Geo")
@@ -102,6 +87,4 @@ public class HapticController : MonoBehaviour
         dorsalCommand = 0.0f;
         ventralCommand = 0.0f;
     }
-
-
 }
