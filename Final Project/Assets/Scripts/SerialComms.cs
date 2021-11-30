@@ -128,7 +128,7 @@ public class SerialComms : MonoBehaviour
         stream.Close();
 
         /*Shut down the application*/
-        UnityEditor.EditorApplication.isPlaying = false;
+        //UnityEditor.EditorApplication.isPlaying = false;
 
         //Ignored in editor, used in build
         Application.Quit();

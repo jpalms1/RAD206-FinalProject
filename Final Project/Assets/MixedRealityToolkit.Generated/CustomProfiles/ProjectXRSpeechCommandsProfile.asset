@@ -39,7 +39,7 @@ MonoBehaviour:
       axisConstraint: 0
   - localizationKey: 
     keyword: Toggle Profiler
-    keyCode: 8
+    keyCode: 0
     action:
       id: 15
       description: Toggle Profiler
@@ -124,6 +124,13 @@ MonoBehaviour:
   - localizationKey: 
     keyword: Enable Two Hands
     keyCode: 56
+    action:
+      id: 0
+      description: None
+      axisConstraint: 0
+  - localizationKey: 
+    keyword: Reset Model
+    keyCode: 8
     action:
       id: 0
       description: None

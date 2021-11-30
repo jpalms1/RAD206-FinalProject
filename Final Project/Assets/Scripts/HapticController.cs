@@ -102,7 +102,9 @@ public class HapticController : MonoBehaviour
         {
             isNeedleInStem = true;
             Debug.Log(other.gameObject.tag + "  ENTER   YAY!!!!!");
+            //no force
         }
+        //Add hard stop for bone
     }
 
     void OnTriggerExit(Collider other)

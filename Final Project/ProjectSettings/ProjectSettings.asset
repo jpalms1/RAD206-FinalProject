@@ -135,7 +135,16 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleVersion: 0.1
-  preloadedAssets: []
+  preloadedAssets:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 3112178100064301795, guid: 39454f22379d4dd42acb5351d8e83d95, type: 2}
+  - {fileID: 871321733048869442, guid: 219b36c4aa4b7994f868b6ac2e56210e, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -626,11 +635,11 @@ PlayerSettings:
   m_MobileRenderingPath: 1
   metroPackageName: Template3D
   metroPackageVersion: 1.0.0.0
-  metroCertificatePath: 
+  metroCertificatePath: C:\Users\Jasmin\Desktop\RAD206-FinalProject\Final Project\Assets\WSATestCertificate.pfx
   metroCertificatePassword: 
-  metroCertificateSubject: 
-  metroCertificateIssuer: 
-  metroCertificateNotAfter: 0000000000000000
+  metroCertificateSubject: DefaultCompany
+  metroCertificateIssuer: DefaultCompany
+  metroCertificateNotAfter: 00bcb6ce84f5d801
   metroApplicationDescription: Template_3D
   wsaImages: {}
   metroTileShortName: Final Project
