@@ -37,11 +37,11 @@ public class TextController : MonoBehaviour
     {
         if(GetComponent<ObjectManipulator>().isActiveAndEnabled == true)
         {
-            manipulationType = "Two-Handed";
+            manipulationType = "Using Two-Handed Manipulation";
         }
         else
         {
-            manipulationType = "One-Handed";
+            manipulationType = "Using One-Handed Manipulation";
         }
 
         statusText.text = "<size=22>Status:</size>" +
@@ -51,7 +51,7 @@ public class TextController : MonoBehaviour
             "\nDiscs: " + discsModel.activeSelf.ToString() +
             "\nSpinal Cord: " + spinalCordModel.activeSelf.ToString() +
             "\nSacrum: " + sacrumModel.activeSelf.ToString() + 
-            "\nManip Type: " + manipulationType;
+            "\n" + manipulationType;
     }
 
 }
