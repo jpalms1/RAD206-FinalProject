@@ -26,6 +26,8 @@ public class HapticController : MonoBehaviour
     public Vector3 needleGOToHIP;
     public Vector3 needleTipHIPPosition;
 
+    ParticleSystem particleSystem;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +44,7 @@ public class HapticController : MonoBehaviour
         totalDorsalCommand = 0.0f;
         totalVentralCommand = 0.0f;
 
+        particleSystem = GameObject.Find("Particles").GetComponent<ParticleSystem>();
         //isNeedleInDisc = false;
     }
 
@@ -101,6 +104,8 @@ public class HapticController : MonoBehaviour
         if (other.gameObject.CompareTag(hapticTargets[3].tag))
         {
             isNeedleInStem = true;
+            //drip CSF
+            particleSystem.Play();
             Debug.Log(other.gameObject.tag + "  ENTER   YAY!!!!!");
             //no force
         }
