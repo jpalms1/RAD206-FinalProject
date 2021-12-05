@@ -53,8 +53,9 @@ public class GodObjectController : MonoBehaviour
             transform.position = collisionPoint;
 
             //Convert value to mm
-            dorsalCommand = stiffness * Vector3.Magnitude(thisGOToHIP) * convertToMillimeter;
+            dorsalCommand = stiffness * Vector3.Magnitude(thisGOToHIP);
             ventralCommand = dorsalCommand;
+            Debug.Log(gameObject.name + " Pos Comm: " + dorsalCommand.ToString("F4"));
         }
         else
         {

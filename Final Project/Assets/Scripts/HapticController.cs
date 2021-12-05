@@ -21,6 +21,7 @@ public class HapticController : MonoBehaviour
     bool isNeedleInMuscle;
     bool isNeedleInDisc;
     bool isNeedleInStem;
+    bool isNeedleInBone;
 
     public Vector3 needleCenterToHIP;
     public Vector3 needleGOToHIP;
@@ -31,12 +32,13 @@ public class HapticController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        hapticTargets = new GameObject[] {            
+        hapticTargets = new GameObject[] {
             GameObject.Find("skin"),
             GameObject.Find("Muscle"),
             GameObject.Find("Male_Skeletal_Intervertabral_Discs_Geo"),
-            GameObject.Find("Nervous_Brain_Stem_Geo")};
-        hapticTargetBools = new bool[4];
+            GameObject.Find("Nervous_Brain_Stem_Geo"),
+            GameObject.Find("Skeleton") };
+        hapticTargetBools = new bool[5];
 
         needle = GameObject.Find("Needle");
         needleTipHIP = GameObject.Find("NeedleTipHIP");
@@ -55,6 +57,7 @@ public class HapticController : MonoBehaviour
         hapticTargetBools[1] = isNeedleInMuscle;
         hapticTargetBools[2] = isNeedleInDisc;
         hapticTargetBools[3] = isNeedleInStem;
+        hapticTargetBools[4] = isNeedleInBone;
 
         needleTipHIPPosition = needleTipHIP.transform.position;
 
@@ -64,15 +67,33 @@ public class HapticController : MonoBehaviour
         cylinderAxisIsUnit = Vector3.Magnitude(cylinderAxis);
 
         //Draw NeedleCenterToHIPLine
-        Debug.DrawLine(needle.transform.position, needleTipHIPPosition, Color.cyan);
+        //Debug.DrawLine(needle.transform.position, needleTipHIPPosition, Color.cyan);
 
-        totalDorsalCommand = GameObject.Find("SkinMuscleGO").GetComponent<GodObjectController>().dorsalCommand +
-            GameObject.Find("DiscGO").GetComponent<GodObjectController>().dorsalCommand +
-            GameObject.Find("StemGO").GetComponent<GodObjectController>().dorsalCommand;
-        totalVentralCommand = GameObject.Find("SkinMuscleGO").GetComponent<GodObjectController>().ventralCommand +
-            GameObject.Find("DiscGO").GetComponent<GodObjectController>().ventralCommand + 
-            GameObject.Find("StemGO").GetComponent<GodObjectController>().ventralCommand;
-
+        //Set aggregate psoition command to tactors
+        // if in Bone -  Hard stop
+        if (isNeedleInBone == true)
+        {
+            totalDorsalCommand = 20.0f;
+            totalVentralCommand = 20.0f;
+        }
+        // if in Stem -  0 force
+        if (isNeedleInStem == true)
+        {
+            totalDorsalCommand = 0.0f;
+            totalVentralCommand = 0.0f;
+        }
+        //Else
+        else
+        {
+            totalDorsalCommand = GameObject.Find("SkinMuscleGO").GetComponent<GodObjectController>().dorsalCommand +
+                GameObject.Find("DiscGO").GetComponent<GodObjectController>().dorsalCommand +
+                GameObject.Find("StemGO").GetComponent<GodObjectController>().dorsalCommand +
+                GameObject.Find("BoneGO").GetComponent<GodObjectController>().dorsalCommand;
+            totalVentralCommand = GameObject.Find("SkinMuscleGO").GetComponent<GodObjectController>().ventralCommand +
+                GameObject.Find("DiscGO").GetComponent<GodObjectController>().ventralCommand +
+                GameObject.Find("StemGO").GetComponent<GodObjectController>().ventralCommand +
+                GameObject.Find("BoneGO").GetComponent<GodObjectController>().ventralCommand;
+        }
         //Set max limits
         if (totalDorsalCommand > 20.0f)
         {
@@ -88,12 +109,11 @@ public class HapticController : MonoBehaviour
     //When the needle tip collides with the disc, freeze the z-position of the tipGO
     void OnTriggerEnter(Collider other)
     {
-        
-        if (other.gameObject == hapticTargets[0])
+        if (other.gameObject.CompareTag("Skin"))
         {
             //Combine skin and muscle feedback but use muscle mesh collider
             isNeedleInSkin = true;
-            isNeedleInMuscle= true;
+            isNeedleInMuscle = true;
             Debug.Log("Skin/Muscle  ENTER");
         }
         if (other.gameObject == hapticTargets[2])
@@ -101,7 +121,7 @@ public class HapticController : MonoBehaviour
             isNeedleInDisc = true;
             Debug.Log(other.gameObject.tag + "  ENTER  OUCH  D': ");
         }
-        if (other.gameObject.CompareTag(hapticTargets[3].tag))
+        if (other.gameObject.CompareTag("SpinalCord"))
         {
             isNeedleInStem = true;
             //drip CSF
@@ -109,17 +129,23 @@ public class HapticController : MonoBehaviour
             Debug.Log(other.gameObject.tag + "  ENTER   YAY!!!!!");
             //no force
         }
-        //Add hard stop for bone
+        if (other.gameObject.CompareTag("L-Spine"))
+        {
+            isNeedleInBone = true;
+            Debug.Log(other.gameObject.tag + "  ENTER   NOOOOO!!!!");
+            //Add hard stop for bone
+        }
+
     }
 
     void OnTriggerExit(Collider other)
     {
 
-        if (other.gameObject == hapticTargets[0])
+        if (other.gameObject.CompareTag("Skin"))
         {
             //Combine skin and muscle feedback but use muscle mesh collider
-            isNeedleInSkin = true;
-            isNeedleInMuscle = true;
+            isNeedleInSkin = false;
+            isNeedleInMuscle = false;
             Debug.Log(other.gameObject.tag + "  EXIT");
         }
         if (other.gameObject == hapticTargets[2])
@@ -127,9 +153,16 @@ public class HapticController : MonoBehaviour
             isNeedleInDisc = false;
             Debug.Log(other.gameObject.tag + "  EXIT");
         }
-        if (other.gameObject.CompareTag(hapticTargets[3].tag))
+        if (other.gameObject.CompareTag("SpinalCord"))
         {
             isNeedleInStem = false;
+            //Stop CSF drip
+            particleSystem.Stop();
+            Debug.Log(other.gameObject.tag + "  EXIT");
+        }
+        if (other.gameObject.CompareTag("L-Spine"))
+        {
+            isNeedleInBone= false;
             Debug.Log(other.gameObject.tag + "  EXIT");
         }
     }

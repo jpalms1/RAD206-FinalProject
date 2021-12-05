@@ -12,6 +12,7 @@ TagManager:
   - C-Spine
   - IntervertabralDiscs
   - SpinalCord
+  - Skin
   layers:
   - Default
   - TransparentFX
