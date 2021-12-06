@@ -413,7 +413,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 70165909}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1090,7 +1090,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 83548095}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1485,7 +1485,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 131124440}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -79849,7 +79849,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1242766449}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -87166,7 +87166,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1791435675}
   m_LocalRotation: {x: 0.5, y: -0, z: -0, w: 0.8660254}
-  m_LocalPosition: {x: 0, y: 0.15000007, z: 1.5969999}
+  m_LocalPosition: {x: 0.28, y: 0, z: 0.6}
   m_LocalScale: {x: 0.001, y: 0.120000005, z: 0.0010000003}
   m_Children:
   - {fileID: 3955410}
@@ -89339,7 +89339,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2044397816}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -90437,7 +90437,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 773501324410695380}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 2}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1.5, y: 1.5000001, z: 1.5000001}
   m_Children:
   - {fileID: 658732153}
@@ -92450,10 +92450,11 @@ GameObject:
   - component: {fileID: 773501324410695384}
   - component: {fileID: 773501324410695387}
   - component: {fileID: 773501324410695383}
-  - component: {fileID: 773501324410695386}
   - component: {fileID: 773501324410695388}
   - component: {fileID: 773501324410695389}
   - component: {fileID: 773501324410695390}
+  - component: {fileID: 773501324410695391}
+  - component: {fileID: 773501324410695386}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -93257,8 +93258,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 45.606876, y: 43.8077, z: 69.2494}
-  m_Center: {x: -1.4944022, y: 98.120346, z: 22.134943}
+  m_Size: {x: 0.5, y: 0.2, z: 0.5}
+  m_Center: {x: 0, y: 0, z: 0.22}
 --- !u!114 &773501324410695387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93339,6 +93340,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25606e5abafd85749b690a35a06d5799, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &773501324410695391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 773501324410695380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5afd5316c63705643b3daba5a6e923bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTetherWhenManipulating: 0
+  IsBoundsHandles: 0
 --- !u!1 &774607604306153903
 GameObject:
   m_ObjectHideFlags: 0
