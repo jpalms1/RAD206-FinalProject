@@ -22,12 +22,12 @@ public class TextController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cSpineModel = GameObject.Find("MixedRealityPlayspace/Main Camera/Model/WholeBody/Skeleton/C-Spine");
-        lSpineModel = GameObject.Find("MixedRealityPlayspace/Main Camera/Model/WholeBody/Skeleton/L-Spine");
-        tSpineModel = GameObject.Find("MixedRealityPlayspace/Main Camera/Model/WholeBody/Skeleton/T-Spine");
-        discsModel = GameObject.Find("MixedRealityPlayspace/Main Camera/Model/WholeBody/Skeleton/Male_Skeletal_Intervertabral_Discs_Geo");
-        spinalCordModel = GameObject.Find("MixedRealityPlayspace/Main Camera/Model/WholeBody/Organs/Nervous_Brain_Stem_Geo");
-        sacrumModel = GameObject.Find("MixedRealityPlayspace/Main Camera/Model/WholeBody/Skeleton/Male_Skeletal_Sacrum_Geo");
+        cSpineModel = GameObject.Find("C-Spine");
+        lSpineModel = GameObject.Find("L-Spine");
+        tSpineModel = GameObject.Find("T-Spine");
+        discsModel = GameObject.Find("Male_Skeletal_Intervertabral_Discs_Geo");
+        spinalCordModel = GameObject.Find("Nervous_Brain_Stem_Geo");
+        sacrumModel = GameObject.Find("Male_Skeletal_Sacrum_Geo");
         
         manipulationType = "Two-Handed";
     }
@@ -44,8 +44,7 @@ public class TextController : MonoBehaviour
             manipulationType = "Using One-Handed Manipulation";
         }
 
-        statusText.text = "<size=22>Status:</size>" +
-            "\nC-Spine: " + cSpineModel.activeSelf.ToString() +
+        statusText.text = "C-Spine: " + cSpineModel.activeSelf.ToString() +
             "\nT-Spine: " + tSpineModel.activeSelf.ToString() +
             "\nL-Spine: " + lSpineModel.activeSelf.ToString() +
             "\nDiscs: " + discsModel.activeSelf.ToString() +

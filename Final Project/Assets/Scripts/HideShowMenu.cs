@@ -9,7 +9,7 @@ public class HideShowMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        menu = GameObject.Find("MixedRealityPlayspace/Main Camera/Canvas/MenuBackground");
+        menu = GameObject.Find("MenuBackground");
     }
 
     public void hideShow()
