@@ -13,7 +13,7 @@ public class GodObjectController : MonoBehaviour
     [Header("Device")]
     public float dorsalCommand;
     public float ventralCommand;
-    float convertToMillimeter = 100.0f;
+    float convertToMillimeter = 1000.0f;
 
     [Header("Needle Info")]
     public Vector3 thisGOToHIP;
@@ -53,7 +53,7 @@ public class GodObjectController : MonoBehaviour
             transform.position = collisionPoint;
 
             //Convert value to mm
-            dorsalCommand = stiffness * Vector3.Magnitude(thisGOToHIP);
+            dorsalCommand = stiffness * Vector3.Magnitude(thisGOToHIP) * convertToMillimeter;
             ventralCommand = dorsalCommand;
             Debug.Log(gameObject.name + " Pos Comm: " + dorsalCommand.ToString("F4"));
         }
@@ -63,7 +63,6 @@ public class GodObjectController : MonoBehaviour
             dorsalCommand = 0.0f;
             ventralCommand = 0.0f;
         }
-
     }
 
     void OnTriggerEnter(Collider other)

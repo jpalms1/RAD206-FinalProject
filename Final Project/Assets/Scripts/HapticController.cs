@@ -29,6 +29,9 @@ public class HapticController : MonoBehaviour
 
     ParticleSystem particleSystem;
 
+    //Maximum extension of device tactor
+    float maxExtension = 20.0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,7 +50,6 @@ public class HapticController : MonoBehaviour
         totalVentralCommand = 0.0f;
 
         particleSystem = GameObject.Find("Particles").GetComponent<ParticleSystem>();
-        //isNeedleInDisc = false;
     }
 
     // Update is called once per frame
@@ -69,12 +71,12 @@ public class HapticController : MonoBehaviour
         //Draw NeedleCenterToHIPLine
         //Debug.DrawLine(needle.transform.position, needleTipHIPPosition, Color.cyan);
 
-        //Set aggregate psoition command to tactors
+        //Set aggregate position command to tactors
         // if in Bone -  Hard stop
         if (isNeedleInBone == true)
         {
-            totalDorsalCommand = 20.0f;
-            totalVentralCommand = 20.0f;
+            totalDorsalCommand = maxExtension;
+            totalVentralCommand = maxExtension;
         }
         // if in Stem -  0 force
         if (isNeedleInStem == true)
@@ -93,17 +95,17 @@ public class HapticController : MonoBehaviour
                 GameObject.Find("DiscGO").GetComponent<GodObjectController>().ventralCommand +
                 GameObject.Find("StemGO").GetComponent<GodObjectController>().ventralCommand +
                 GameObject.Find("BoneGO").GetComponent<GodObjectController>().ventralCommand;
-        }
-        //Set max limits
-        if (totalDorsalCommand > 20.0f)
-        {
-            totalDorsalCommand = 20.0f;
-        }
-        if (totalVentralCommand > 20.0f)
-        {
-            totalVentralCommand = 20.0f;
-        }
 
+        }
+        //Set max limits just in case:
+        if (totalDorsalCommand > maxExtension)
+        {
+            totalDorsalCommand = maxExtension;
+        }
+        if (totalVentralCommand > maxExtension)
+        {
+            totalVentralCommand = maxExtension;
+        }
     }
 
     //When the needle tip collides with the disc, freeze the z-position of the tipGO
@@ -111,7 +113,7 @@ public class HapticController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Skin"))
         {
-            //Combine skin and muscle feedback but use muscle mesh collider
+            //Combine skin and muscle feedback but use skin mesh collider
             isNeedleInSkin = true;
             isNeedleInMuscle = true;
             Debug.Log("Skin/Muscle  ENTER");
@@ -119,31 +121,28 @@ public class HapticController : MonoBehaviour
         if (other.gameObject == hapticTargets[2])
         {
             isNeedleInDisc = true;
-            Debug.Log(other.gameObject.tag + "  ENTER  OUCH  D': ");
+            Debug.Log(other.gameObject.tag + "  ENTER");
         }
         if (other.gameObject.CompareTag("SpinalCord"))
         {
             isNeedleInStem = true;
             //drip CSF
             particleSystem.Play();
-            Debug.Log(other.gameObject.tag + "  ENTER   YAY!!!!!");
+            Debug.Log(other.gameObject.tag + "  ENTER");
             //no force
         }
         if (other.gameObject.CompareTag("L-Spine"))
         {
             isNeedleInBone = true;
-            Debug.Log(other.gameObject.tag + "  ENTER   NOOOOO!!!!");
-            //Add hard stop for bone
+            Debug.Log(other.gameObject.tag + "  ENTER");
         }
-
     }
 
     void OnTriggerExit(Collider other)
     {
-
         if (other.gameObject.CompareTag("Skin"))
         {
-            //Combine skin and muscle feedback but use muscle mesh collider
+            //Combine skin and muscle feedback but use skin mesh collider
             isNeedleInSkin = false;
             isNeedleInMuscle = false;
             Debug.Log(other.gameObject.tag + "  EXIT");
@@ -162,9 +161,8 @@ public class HapticController : MonoBehaviour
         }
         if (other.gameObject.CompareTag("L-Spine"))
         {
-            isNeedleInBone= false;
+            isNeedleInBone = false;
             Debug.Log(other.gameObject.tag + "  EXIT");
         }
     }
-
 }
