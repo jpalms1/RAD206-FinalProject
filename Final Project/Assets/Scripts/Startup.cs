@@ -5,13 +5,11 @@ using UnityEngine;
 public class Startup : MonoBehaviour
 {
     GameObject wholeBody;
-    GameObject sliders;
-
+    
     // Start is called before the first frame update
     void Start()
     {
         wholeBody = GameObject.Find("WholeBody");
-        sliders = GameObject.Find("Sliders");
 
         //Enable all children of WholeBody
         for (int i = 0; i < wholeBody.transform.childCount; i++)
@@ -19,8 +17,11 @@ public class Startup : MonoBehaviour
             wholeBody.transform.GetChild(i).gameObject.SetActive(true);
         }
 
-        //Hide Sliders at Start
-        sliders.SetActive(false);
+        //Hide needle sliders and menus at Start
+        GameObject.Find("Needle").SetActive(false);
+        GameObject.Find("Menu").SetActive(false);
+        GameObject.Find("StatusSlate").SetActive(false);
+        GameObject.Find("Sliders").SetActive(false);
     }
 
 

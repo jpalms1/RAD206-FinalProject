@@ -689,6 +689,42 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 1
+      - m_Target: {fileID: 4505189981597697376}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 1
+      - m_Target: {fileID: 2266953341320641684}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 1
+      - m_Target: {fileID: 1791435675}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 1
   Events:
   - Event:
       m_PersistentCalls:
@@ -79762,8 +79798,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1221822588}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.12, y: 0.08, z: 0}
+  m_LocalRotation: {x: 0, y: 0.17364816, z: 0, w: 0.9848078}
+  m_LocalPosition: {x: -0.11, y: 0.08, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1928440821399790308}
@@ -79772,7 +79808,7 @@ Transform:
   - {fileID: 446232844}
   m_Father: {fileID: 0}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 20, z: 0}
 --- !u!114 &1221822590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87165,8 +87201,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1791435675}
-  m_LocalRotation: {x: 0.5, y: -0, z: -0, w: 0.8660254}
-  m_LocalPosition: {x: 0.28, y: 0, z: 0.6}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0.6}
   m_LocalScale: {x: 0.001, y: 0.120000005, z: 0.0010000003}
   m_Children:
   - {fileID: 3955410}
@@ -87178,7 +87214,7 @@ Transform:
   - {fileID: 1593579714}
   m_Father: {fileID: 384252810}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &1791435677
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -92476,7 +92512,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFocusRequired: 0
   keywords:
-  - keyword: Hide Tissue
+  - keyword: Hide Skin
     response:
       m_PersistentCalls:
         m_Calls:
@@ -92502,7 +92538,7 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
-            m_BoolArgument: 0
+            m_BoolArgument: 1
           m_CallState: 1
         - m_Target: {fileID: 1777542397}
           m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
@@ -92514,7 +92550,7 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
-            m_BoolArgument: 0
+            m_BoolArgument: 1
           m_CallState: 1
         - m_Target: {fileID: 658824735}
           m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
@@ -92526,7 +92562,7 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
-            m_BoolArgument: 0
+            m_BoolArgument: 1
           m_CallState: 1
         - m_Target: {fileID: 658823619}
           m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
@@ -92538,7 +92574,7 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
-            m_BoolArgument: 0
+            m_BoolArgument: 1
           m_CallState: 1
         - m_Target: {fileID: 1319356845}
           m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
@@ -92612,7 +92648,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 1
-  - keyword: Show Tissue
+  - keyword: Show Skin
     response:
       m_PersistentCalls:
         m_Calls:
@@ -93462,7 +93498,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4505189981597697376}
   m_LocalRotation: {x: 0, y: 0.17364816, z: 0, w: 0.9848078}
-  m_LocalPosition: {x: 0.21, y: 0.05, z: 0.6}
+  m_LocalPosition: {x: 0.21, y: 0.05, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2850447316804797007}
@@ -94549,7 +94585,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1259373536649120344}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.03, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0.05, z: 0.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1259373537649021875}
@@ -99910,7 +99946,7 @@ GameObject:
   - component: {fileID: 560470515272188688}
   - component: {fileID: 1146687070334060559}
   m_Layer: 0
-  m_Name: Status Slate
+  m_Name: StatusSlate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -99924,7 +99960,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2266953341320641684}
   m_LocalRotation: {x: 0, y: -0.17364825, z: 0, w: 0.9848078}
-  m_LocalPosition: {x: -0.4, y: 0.24, z: 0.6}
+  m_LocalPosition: {x: -0.4, y: 0.24, z: 0.75}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children:
   - {fileID: 2266953342727644543}
@@ -112809,7 +112845,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Hide/Show Tissue
+  m_text: Hide/Show Skin
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6a84f857bec7e7345843ae29404c57ce, type: 2}
   m_sharedMaterial: {fileID: 21202819797275496, guid: 6a84f857bec7e7345843ae29404c57ce, type: 2}
@@ -112977,7 +113013,7 @@ GameObject:
   - component: {fileID: 4652450457845797866}
   - component: {fileID: 3936108100638220667}
   m_Layer: 0
-  m_Name: HideShowTissue
+  m_Name: HideShowSkin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

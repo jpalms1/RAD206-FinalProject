@@ -66,14 +66,14 @@ MonoBehaviour:
       description: None
       axisConstraint: 0
   - localizationKey: 
-    keyword: Hide Tissue
+    keyword: Hide Skin
     keyCode: 113
     action:
       id: 0
       description: None
       axisConstraint: 0
   - localizationKey: 
-    keyword: Show Tissue
+    keyword: Show Skin
     keyCode: 119
     action:
       id: 0
