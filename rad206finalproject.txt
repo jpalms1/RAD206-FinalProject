@@ -1,0 +1,19 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: >-
+  RAD 206 Final Project: Mixed Reality Simulation for
+  Training of Lumbar Puncture Procedure
+message: 'If you use this software, please cite it as below.'
+type: software
+authors:
+  - given-names: Jasmin E.
+    family-names: Palmer
+    email: jasminp@stanford.edu
+    affiliation: Stanford University
+    orcid: 'https://orcid.org/0009-0004-5337-8143'
+repository-code: >-
+  https://github.com/jpalms1/RAD206-FinalProject/tree/main/Final%20Project
+version: 1.0.0
+date-released: '2021-12-07'
